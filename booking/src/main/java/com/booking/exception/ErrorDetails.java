@@ -1,11 +1,11 @@
 package com.booking.exception;
 
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 @Builder
-@Data
+@Getter
 public class ErrorDetails {
 
   private HttpStatus status;

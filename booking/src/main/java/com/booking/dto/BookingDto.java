@@ -1,6 +1,6 @@
 package com.booking.dto;
 
-import java.util.List;
+import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,18 +10,22 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PropertyDto {
+public class BookingDto {
 
   // TODO: add validation
 
   private Integer id;
 
-  private String name;
+  private Integer roomId;
 
-  private String address;
+  private LocalDate checkInDate;
 
-  private String contactPhone;
+  private LocalDate checkOutDate;
 
-  private List<RoomDto> rooms;
+  private String guestName;
+
+  private String guestContactInfo;
+
+  private Integer numberOfGuests;
 
 }
