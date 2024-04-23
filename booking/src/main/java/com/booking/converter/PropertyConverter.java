@@ -2,8 +2,8 @@ package com.booking.converter;
 
 import com.booking.dto.PropertyDto;
 import com.booking.model.Property;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +24,7 @@ public class PropertyConverter {
   }
 
   public Property toEntity(PropertyDto propertyDto) {
-    Property property =  Property.builder()
+    Property property = Property.builder()
         .name(propertyDto.getName())
         .address(propertyDto.getAddress())
         .contactPhone(propertyDto.getContactPhone())
@@ -34,11 +34,9 @@ public class PropertyConverter {
   }
 
   public List<PropertyDto> toDtoList(List<Property> properties) {
-    List<PropertyDto> propertyDtos = new ArrayList<>();
-    for (Property property: properties) {
-      propertyDtos.add(toDto(property));
-    }
-    return propertyDtos;
+    return properties.stream()
+        .map(this::toDto)
+        .collect(Collectors.toList());
   }
 
 }

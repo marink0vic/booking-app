@@ -3,8 +3,8 @@ package com.booking.converter;
 import com.booking.dto.BookingDto;
 import com.booking.model.Booking;
 import com.booking.model.Room;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -34,19 +34,15 @@ public class BookingConverter {
   }
 
   public List<BookingDto> toDtoList(List<Booking> bookings) {
-    List<BookingDto> bookingDtos = new ArrayList<>();
-    for (Booking booking: bookings) {
-      bookingDtos.add(toDto(booking));
-    }
-    return bookingDtos;
+    return bookings.stream()
+        .map(this::toDto)
+        .collect(Collectors.toList());
   }
 
-  public List<Booking> toEntityList(List<BookingDto> bookingDtos, Room room) {
-    List<Booking> bookings = new ArrayList<>();
-    for (BookingDto bookingDto: bookingDtos) {
-      bookings.add(toEntity(bookingDto, room));
-    }
-    return bookings;
+  public List<Booking> toEntityList(List<BookingDto> bookings, Room room) {
+    return bookings.stream()
+        .map(booking -> toEntity(booking, room))
+        .collect(Collectors.toList());
   }
 
 }
