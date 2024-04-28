@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
 import com.booking.converter.PropertyConverter;
@@ -20,7 +21,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
@@ -31,8 +31,8 @@ class PropertyServiceTest {
   @Mock
   private PropertyRepository propertyRepository;
 
-  private final PropertyConverter propertyConverter = Mockito
-      .spy(new PropertyConverter(Mockito.spy(new RoomConverter())));
+  private final PropertyConverter propertyConverter =
+      spy(new PropertyConverter(spy(new RoomConverter())));
 
   @InjectMocks
   private PropertyService propertyService;
@@ -41,11 +41,12 @@ class PropertyServiceTest {
   void shouldCreateProperty() {
     // Given
     Property property = buildProperty();
-
     PropertyDto propertyDto = buildPropertyDto();
     when(propertyRepository.save(any())).thenReturn(property);
+
     // When
     PropertyDto savedProperty = propertyService.saveProperty(propertyDto);
+
     // Then
     assertNotNull(savedProperty.getId());
     assertEquals(1, property.getId());
@@ -56,8 +57,10 @@ class PropertyServiceTest {
     // Given
     List<Property> properties = List.of(buildProperty());
     when(propertyRepository.findAll()).thenReturn(properties);
+
     // When
     List<PropertyDto> propertyDtos = propertyService.findAllProperties();
+
     // Then
     assertEquals(properties.size(), propertyDtos.size());
     for (PropertyDto property : propertyDtos) {
@@ -70,8 +73,10 @@ class PropertyServiceTest {
     // Given
     Property property = buildProperty();
     when(propertyRepository.findById(PROPERTY_ID)).thenReturn(Optional.of(property));
+
     // When
     PropertyDto propertyDto = propertyService.findProperty(PROPERTY_ID);
+
     // Then
     assertNotNull(propertyDto);
     assertEquals(PROPERTY_ID, propertyDto.getId());
@@ -80,11 +85,12 @@ class PropertyServiceTest {
   @Test
   void shouldNotFindProperty() {
     // Given
-    Property property = buildProperty();
     when(propertyRepository.findById(PROPERTY_ID)).thenReturn(Optional.empty());
+
     // When
     Exception exception = assertThrows(EntityNotFoundException.class,
         () -> propertyService.findProperty(PROPERTY_ID));
+
     // Then
     assertEquals(String.format("Property with id: %s not found", PROPERTY_ID),
         exception.getMessage());
