@@ -7,8 +7,6 @@ import static org.mockito.Mockito.when;
 
 import com.booking.dto.PropertyDto;
 import com.booking.dto.RoomDto;
-import com.booking.model.Property;
-import com.booking.model.Room;
 import com.booking.service.PropertyService;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
@@ -19,12 +17,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 @WebMvcTest(PropertyController.class)
-public class PropertyControllerTest {
+class PropertyControllerTest {
 
   private static final Integer PROPERTY_ID = 1;
 
@@ -66,7 +62,7 @@ public class PropertyControllerTest {
     PropertyDto property = buildPropertyDto();
     when(propertyService.findProperty(PROPERTY_ID)).thenReturn(property);
 
-    mockMvc.perform(MockMvcRequestBuilders.get(String.format("/properties/%s",PROPERTY_ID)))
+    mockMvc.perform(MockMvcRequestBuilders.get(String.format("/properties/%s", PROPERTY_ID)))
         .andExpect(MockMvcResultMatchers.status().isOk())
         .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists());
 

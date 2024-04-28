@@ -24,7 +24,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class PropertyServiceTest {
+class PropertyServiceTest {
 
   private static final Integer PROPERTY_ID = 1;
 
