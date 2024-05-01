@@ -88,7 +88,7 @@ class PropertyControllerTest {
             "rooms" : [
                 {
                     "roomNumber": 601,
-                    "price": 234,
+                    "price": 100.00,
                     "status": "AVAILABLE"
                 }
             ]
@@ -99,11 +99,11 @@ class PropertyControllerTest {
   private PropertyDto buildPropertyDto() {
     return PropertyDto.builder()
         .id(PROPERTY_ID)
-        .name("Laguna Hotel")
-        .address("Main Lane 22A")
-        .contactPhone("89-45-34")
+        .name("Blue Horizon Apartments")
+        .address("Sunset Boulevard 34")
+        .contactPhone("345-433-023")
         .rooms(List.of(RoomDto.builder()
-            .roomNumber(1)
+            .roomNumber(601)
             .price(100.00)
             .status("AVAILABLE")
             .build()))
