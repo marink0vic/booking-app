@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
 import com.booking.converter.PropertyConverter;
@@ -21,6 +20,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
@@ -31,8 +31,8 @@ class PropertyServiceTest {
   @Mock
   private PropertyRepository propertyRepository;
 
-  private final PropertyConverter propertyConverter =
-      spy(new PropertyConverter(spy(new RoomConverter())));
+  @Spy
+  private final PropertyConverter propertyConverter = new PropertyConverter(new RoomConverter());
 
   @InjectMocks
   private PropertyService propertyService;
@@ -49,21 +49,20 @@ class PropertyServiceTest {
 
     // Then
     assertNotNull(savedProperty.getId());
-    assertEquals(1, property.getId());
+    assertEquals(1, savedProperty.getId());
   }
 
   @Test
   void shouldFindAllProperties() {
     // Given
-    List<Property> properties = List.of(buildProperty());
-    when(propertyRepository.findAll()).thenReturn(properties);
+    when(propertyRepository.findAll()).thenReturn(List.of(buildProperty()));
 
     // When
-    List<PropertyDto> propertyDtos = propertyService.findAllProperties();
+    List<PropertyDto> properties = propertyService.findAllProperties();
 
     // Then
-    assertEquals(properties.size(), propertyDtos.size());
-    for (PropertyDto property : propertyDtos) {
+    assertEquals(1, properties.size());
+    for (PropertyDto property : properties) {
       assertNotNull(property.getId());
     }
   }
@@ -71,8 +70,7 @@ class PropertyServiceTest {
   @Test
   void shouldFindProperty() {
     // Given
-    Property property = buildProperty();
-    when(propertyRepository.findById(PROPERTY_ID)).thenReturn(Optional.of(property));
+    when(propertyRepository.findById(PROPERTY_ID)).thenReturn(Optional.of(buildProperty()));
 
     // When
     PropertyDto propertyDto = propertyService.findProperty(PROPERTY_ID);

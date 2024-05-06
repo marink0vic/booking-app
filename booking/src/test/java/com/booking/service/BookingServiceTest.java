@@ -49,7 +49,7 @@ class BookingServiceTest {
 
         // Then
         assertNotNull(savedBooking.getId());
-        assertEquals(1, booking.getId());
+        assertEquals(1, savedBooking.getId());
     }
 
     private Booking buildBooking() {
