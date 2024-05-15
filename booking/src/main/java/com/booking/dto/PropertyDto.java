@@ -1,6 +1,9 @@
 package com.booking.dto;
 
 import java.util.List;
+
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,16 +15,18 @@ import lombok.NoArgsConstructor;
 @Builder
 public class PropertyDto {
 
-  // TODO: add validation
-
   private Integer id;
 
+  @NotBlank
   private String name;
 
+  @NotBlank
   private String address;
 
+  @NotBlank
   private String contactPhone;
 
+  @Valid
   private List<RoomDto> rooms;
 
 }
