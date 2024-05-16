@@ -4,7 +4,6 @@ import com.booking.dto.RoomDto;
 import com.booking.model.Property;
 import com.booking.model.Room;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -32,13 +31,13 @@ public class RoomConverter {
   public List<RoomDto> toDtoList(List<Room> rooms) {
     return rooms.stream()
         .map(this::toDto)
-        .collect(Collectors.toList());
+        .toList();
   }
 
   public List<Room> toEntityList(List<RoomDto> rooms, Property property) {
     return rooms.stream()
         .map(room -> toEntity(room, property))
-        .collect(Collectors.toList());
+        .toList();
   }
 
 }
