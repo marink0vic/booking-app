@@ -1,6 +1,8 @@
 package com.booking.dto;
 
 import java.time.LocalDate;
+
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,10 +14,9 @@ import lombok.NoArgsConstructor;
 @Builder
 public class BookingDto {
 
-  // TODO: add validation
-
   private Integer id;
 
+  @NotNull
   private Integer roomId;
 
   private LocalDate checkInDate;
