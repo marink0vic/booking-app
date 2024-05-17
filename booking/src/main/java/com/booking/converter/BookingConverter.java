@@ -1,6 +1,7 @@
 package com.booking.converter;
 
 import com.booking.dto.BookingDto;
+import com.booking.dto.CanceledBookingDto;
 import com.booking.model.Booking;
 import com.booking.model.Room;
 import java.util.List;
@@ -18,6 +19,7 @@ public class BookingConverter {
         .guestName(booking.getGuestName())
         .guestContactInfo(booking.getGuestContactInfo())
         .numberOfGuests(booking.getNumberOfGuests())
+        .status(booking.getStatus())
         .build();
   }
 
@@ -44,4 +46,11 @@ public class BookingConverter {
             .toList();
   }
 
+  public CanceledBookingDto toCanceledBookingDto(Booking booking) {
+    return CanceledBookingDto.builder()
+            .id(booking.getId())
+            .roomId(booking.getRoom().getId())
+            .status(booking.getStatus())
+            .build();
+  }
 }

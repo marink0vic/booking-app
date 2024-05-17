@@ -37,4 +37,6 @@ public class Booking {
 
   private Integer numberOfGuests;
 
+  private String status;
+
 }

@@ -29,4 +29,6 @@ public class BookingDto {
 
   private Integer numberOfGuests;
 
+  private String status;
+
 }
